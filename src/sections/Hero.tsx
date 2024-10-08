@@ -4,15 +4,18 @@ import starsBg from "@/assets/stars.png"
 export const Hero = () => {
   return (
     <section
-      className="h-[800px] flex items-center overflow-hidden relative"
+      className="h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
       //USING IN LINE CSS FOR THE BACKGROIUND STAR IMAGE
       style={{
         backgroundImage: `url(${starsBg.src})`,
       }}
     >
       {/* THE HERO SECTION PALNET THINGY */}
+
+      {/* shadow */}
+      <div className="absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(140,69,255,.5)_15%,rgb(14,0,36,.5)_78%,transparent)]"></div>
       {/* THE BIG PURPLE PLANET */}
-      <div className="absolute h-64 w-64 bg-purple-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgb(184,148,255)_37.7%,rgb(24,0,66))] shadow-[-20px_-20px_50px_rgb(255,250,255,.5),-20px_-20px_80px_rgb(255,0,255,.1),0_0_50px_rgb(140,69,255)]"></div>
+      <div className="absolute h-64 w-64 bg-purple-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgb(184,148,255)_37.7%,rgb(24,0,66))] shadow-[-20px_-20px_50px_rgb(255,255,255,.5),-20px_-20px_80px_rgb(255,255,255,.1),0_0_50px_rgb(140,69,255)]"></div>
       {/* FIRST RING */}
       <div className="absolute h-[344px] w-[344px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
         {/* PLANET on the ring left-0 top-1/2 */}
