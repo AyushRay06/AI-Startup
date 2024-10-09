@@ -33,12 +33,12 @@ const tabs = [
 
 export const Features = () => {
   return (
-    <section className="py-20">
+    <section className="py-20 md:py-28">
       <div className="container">
         <h2 className="text-5xl lg:text-7xl font-medium text-center tracking-tighter">
           Elevate your SEO effforts.
         </h2>
-        <p className="text-white/60 text-lg text-center tracking-tight mt-5 max-w-3xl mx-auto">
+        <p className="text-white/70 text-lg md:text-xl text-center tracking-tight mt-5 max-w-3xl mx-auto">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod quis,
           vero sint consequuntur molestiae velit tempore illo ipsam .
         </p>
