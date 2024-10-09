@@ -55,7 +55,7 @@ export const Hero = () => {
         <h1 className="text-center text-8xl md:text-9xl lg:text-[200px] font-semibold tracking-tighter bg-white bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(74,32,138))] text-transparent bg-clip-text">
           AI SEO
         </h1>
-        <p className="text-center mt-6 text-2xl text-white/60 max-w-3xl mx-auto">
+        <p className="text-center mt-6 text-lg md:text-xl lg:text-2xl text-white/60 max-w-3xl mx-auto">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore
           tenetur veniam eaque et nihil quia praesentium quasi rem facere? Optio
           non laboriosam maiores ducimus voluptas quisquam molestias voluptatum
