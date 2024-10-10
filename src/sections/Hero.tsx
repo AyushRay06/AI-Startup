@@ -52,16 +52,16 @@ export const Hero = () => {
         }}
         //for rotation duration
         transition={{
-          duration: 20,
+          duration: 30,
           repeat: Infinity,
           ease: "linear",
         }}
         className="absolute h-[344px] w-[344px] lg:h-[640px] lg:w-[640px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         {/* PLANET on the ring left-0 top-1/2 */}
-        <div className="absolute h-3 w-3 lg:h-6 lg:w-6 rounded-full bg-zinc-600 top-1/2 left-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute h-3 w-3  rounded-full bg-zinc-800 top-1/2 left-full -translate-x-1/2 -translate-y-1/2"></div>
 
-        <div className="absolute h-6 w-6 rounded-full bg-zinc-600 top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute h-3 w-3 rounded-full bg-zinc-800 top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"></div>
       </motion.div>
       {/* 2nd Ring */}
       <motion.div
@@ -80,12 +80,12 @@ export const Hero = () => {
         className="absolute h-[484px] w-[484px] lg:hidden rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       >
         {/* PLANET on 2nd Ring */}
-        <div className="absolute h-3 w-3 bg-slate-800  rounded-full top-1/2 left-full -translate-x-1/2  -translate-y-1/2">
+        <div className="absolute h-3 w-3 bg-zinc-800  rounded-full top-1/2 left-full -translate-x-1/2  -translate-y-1/2">
           {/* RING on Planet which is on the 2nd ring of the Main Planet */}
           <div className="absolute h-[64px] w-[64px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
         </div>
 
-        <div className="absolute h-4 w-4 bg-slate-800 border border-white/20 rounded-full top-0 left-1/2 -translate-x-1/2  -translate-y-1/2"></div>
+        <div className="absolute h-4 w-4 bg-zinc-900 rounded-full top-0 left-1/2 -translate-x-1/2  -translate-y-1/2"></div>
       </motion.div>
       {/* 3rd Ring */}
       <motion.div
