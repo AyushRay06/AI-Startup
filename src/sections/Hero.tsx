@@ -2,15 +2,35 @@
 
 import { Button } from "@/components/button"
 import starsBg from "@/assets/stars.png"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
 export const Hero = () => {
+  //bg start animation with scroll for depth
+  const sectionRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  })
+
+  const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300])
   return (
-    <section
+    <motion.section
+      //ref to target/refer the particular section
+      ref={sectionRef}
+      animate={{
+        backgroundPositionX: starsBg.width,
+      }}
+      transition={{
+        repeat: Infinity,
+        ease: "linear",
+        duration: 70,
+      }}
       className="h-[800px] flex items-center overflow-hidden relative [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
       //USING IN LINE CSS FOR THE BACKGROIUND STAR IMAGE
       style={{
         backgroundImage: `url(${starsBg.src})`,
+        backgroundPositionY,
       }}
     >
       {/* THE HERO SECTION PALNET THINGY */}
@@ -60,7 +80,7 @@ export const Hero = () => {
         className="absolute h-[484px] w-[484px] lg:hidden rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
       >
         {/* PLANET on 2nd Ring */}
-        <div className="absolute h-4 w-4 bg-slate-800  rounded-full top-1/2 left-full -translate-x-1/2  -translate-y-1/2">
+        <div className="absolute h-3 w-3 bg-slate-800  rounded-full top-1/2 left-full -translate-x-1/2  -translate-y-1/2">
           {/* RING on Planet which is on the 2nd ring of the Main Planet */}
           <div className="absolute h-[64px] w-[64px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
         </div>
@@ -84,9 +104,9 @@ export const Hero = () => {
         className="absolute h-[699px] w-[699px]   lg:h-[800px] lg:w-[800px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         {/* PLANET on ring 3rd  ... cordinatest ir top an dleft through trial an error */}
-        <div className="absolute h-4 w-4 lg:h-8 lg:w-8 bg-slate-700 rounded-full top-1/4 left-8">
+        <div className="absolute h-3 w-3 lg:h-4 lg:w-4 bg-slate-800 rounded-full top-1/4 left-9">
           {/* RING on the planet which is on the 3rd ring of the main planet */}
-          <div className="absolute h-[159px] w-[159px] border rounded-full border-white/20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
+          <div className="absolute h-[59px] w-[59px] border rounded-full border-white/20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
         </div>
       </motion.div>
       {/* 4th Ring */}
@@ -106,9 +126,9 @@ export const Hero = () => {
         className="absolute h-[899px] w-[899px] lg:h-[1000px] lg:w-[1000px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         {/* PLANET on the 4th ring */}
-        <div className="absolute h-6 w-6 lg:h-8 lg:w-8  bg-slate-800 rounded-full top-32 left-[764px] lg:left-[830px]">
+        <div className="absolute h-3 w-3 lg:h-4 lg:w-4  bg-slate-800 rounded-full top-32 left-[764px] lg:left-[830px]">
           {/* RING on planet whixh is on the 4th ring of the main planet */}
-          <div className="absolute h-[190px] w-[190px] border rounded-full border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute h-[80px] w-[80px] border rounded-full border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
         </div>
       </motion.div>
 
@@ -128,6 +148,6 @@ export const Hero = () => {
           <Button />
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
