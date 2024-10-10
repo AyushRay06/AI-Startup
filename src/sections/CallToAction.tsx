@@ -1,11 +1,22 @@
+"use client"
+
 import Starbg from "@/assets/stars.png"
 import Gridbg from "@/assets/grid-lines.png"
 import { Button } from "@/components/button"
+import { motion } from "framer-motion"
 
 export const CallToAction = () => {
   return (
-    <section className="p-20 md:p-28">
-      <div
+    <motion.section className="p-20 md:p-28">
+      <motion.div
+        animate={{
+          backgroundPositionX: Starbg.width,
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease:"linear"
+        }}
         className="border border-white/10 py-28 rouned-xl overflow-hidden relative"
         style={{
           backgroundImage: `url(${Starbg.src})`,
@@ -31,7 +42,7 @@ export const CallToAction = () => {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   )
 }
