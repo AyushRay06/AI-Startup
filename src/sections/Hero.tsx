@@ -1,5 +1,8 @@
+"use client"
+
 import { Button } from "@/components/button"
 import starsBg from "@/assets/stars.png"
+import { motion } from "framer-motion"
 
 export const Hero = () => {
   return (
@@ -17,14 +20,45 @@ export const Hero = () => {
       {/* THE BIG PURPLE PLANET */}
       <div className="absolute h-64 w-64 lg:h-[500px] lg:w-[500px] bg-purple-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgb(184,148,255)_37.7%,rgb(24,0,66))] shadow-[-20px_-20px_50px_rgb(255,255,255,.5),-20px_-20px_80px_rgb(255,255,255,.1),0_0_50px_rgb(140,69,255)]"></div>
       {/* FIRST RING */}
-      <div className="absolute h-[344px] w-[344px] lg:h-[640px] lg:w-[640px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <motion.div
+        //to cover the -translate-x,y-1/2
+        style={{
+          translateY: "-50%",
+          translateX: "-50%",
+        }}
+        //to animate
+        animate={{
+          rotate: 360,
+        }}
+        //for rotation duration
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute h-[344px] w-[344px] lg:h-[640px] lg:w-[640px] rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+      >
         {/* PLANET on the ring left-0 top-1/2 */}
         <div className="absolute h-3 w-3 lg:h-6 lg:w-6 rounded-full bg-zinc-600 top-1/2 left-full -translate-x-1/2 -translate-y-1/2"></div>
 
         <div className="absolute h-6 w-6 rounded-full bg-zinc-600 top-1/2 left-0 -translate-x-1/2 -translate-y-1/2"></div>
-      </div>
+      </motion.div>
       {/* 2nd Ring */}
-      <div className="absolute h-[484px] w-[484px] lg:hidden rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <motion.div
+        style={{
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          rotate: 360,
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "linear",
+        }}
+        className="absolute h-[484px] w-[484px] lg:hidden rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+      >
         {/* PLANET on 2nd Ring */}
         <div className="absolute h-4 w-4 bg-slate-800  rounded-full top-1/2 left-full -translate-x-1/2  -translate-y-1/2">
           {/* RING on Planet which is on the 2nd ring of the Main Planet */}
@@ -32,23 +66,51 @@ export const Hero = () => {
         </div>
 
         <div className="absolute h-4 w-4 bg-slate-800 border border-white/20 rounded-full top-0 left-1/2 -translate-x-1/2  -translate-y-1/2"></div>
-      </div>
+      </motion.div>
       {/* 3rd Ring */}
-      <div className="absolute h-[699px] w-[699px]   lg:h-[800px] lg:w-[800px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <motion.div
+        style={{
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          rotate: 360,
+        }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: 60,
+        }}
+        className="absolute h-[699px] w-[699px]   lg:h-[800px] lg:w-[800px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+      >
         {/* PLANET on ring 3rd  ... cordinatest ir top an dleft through trial an error */}
-        <div className="absolute h-4 w-4 lg:h-8 lg:w-8 bg-slate-700 rounded-full top-1/4 left-7">
+        <div className="absolute h-4 w-4 lg:h-8 lg:w-8 bg-slate-700 rounded-full top-1/4 left-8">
           {/* RING on the planet which is on the 3rd ring of the main planet */}
           <div className="absolute h-[159px] w-[159px] border rounded-full border-white/20  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
         </div>
-      </div>
+      </motion.div>
       {/* 4th Ring */}
-      <div className="absolute h-[899px] w-[899px] lg:h-[1000px] lg:w-[1000px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <motion.div
+        style={{
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        animate={{
+          rotate: 360,
+        }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: 90,
+        }}
+        className="absolute h-[899px] w-[899px] lg:h-[1000px] lg:w-[1000px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
+      >
         {/* PLANET on the 4th ring */}
         <div className="absolute h-6 w-6 lg:h-8 lg:w-8  bg-slate-800 rounded-full top-32 left-[764px] lg:left-[830px]">
           {/* RING on planet whixh is on the 4th ring of the main planet */}
           <div className="absolute h-[190px] w-[190px] border rounded-full border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
         </div>
-      </div>
+      </motion.div>
 
       {/* CONTENT */}
       <div className="container relative mt-16">
