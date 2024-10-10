@@ -1,8 +1,11 @@
+"use client"
+
 import avatar1 from "@/assets/avatar-1.png"
 import avatar2 from "@/assets/avatar-2.png"
 import avatar3 from "@/assets/avatar-3.png"
 import avatar4 from "@/assets/avatar-4.png"
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 const testimonials = [
   {
@@ -42,9 +45,15 @@ export const Testimonials = () => {
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veritatis,
           maiores! Sunt odit dicta ea.
         </p>
-        <div className="overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
-          <div className="flex gap-5 ">
-            {testimonials.map((testimonial) => (
+        <div className="flex overflow-hidden mt-10 [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+          <motion.div
+            initial={{ translateX: "-50%" }}
+            animate={{ translateX: "0" }}
+            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+            className="flex gap-5 flex-none -translate-x-1/2 pr-5"
+          >
+            {/* creating an array and spreading testimonial so that it can loop basically to map testimonial twice */}
+            {[...testimonials, ...testimonials].map((testimonial) => (
               <div
                 key={testimonial.name}
                 // flex-none esure that flex property is not determining the dimention of the element, and it is determined by whatever the explicit declaration is
@@ -65,7 +74,7 @@ export const Testimonials = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

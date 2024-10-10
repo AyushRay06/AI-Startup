@@ -126,7 +126,7 @@ export const Hero = () => {
         className="absolute h-[899px] w-[899px] lg:h-[1000px] lg:w-[1000px] border rounded-full border-white/20 border-dashed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
       >
         {/* PLANET on the 4th ring */}
-        <div className="absolute h-3 w-3 lg:h-4 lg:w-4  bg-slate-800 rounded-full top-32 left-[764px] lg:left-[830px]">
+        <div className="absolute h-3 w-3 lg:h-4 lg:w-4  bg-zinc-500 rounded-full top-32 left-[764px] lg:left-[830px]">
           {/* RING on planet whixh is on the 4th ring of the main planet */}
           <div className="absolute h-[80px] w-[80px] border rounded-full border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
         </div>
