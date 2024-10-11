@@ -3,31 +3,71 @@
 import Starbg from "@/assets/stars.png"
 import Gridbg from "@/assets/grid-lines.png"
 import { Button } from "@/components/button"
-import { motion } from "framer-motion"
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion"
+import { RefObject, useRef } from "react"
 
+//for follow mouse hover, we created a custom hook
+const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  return [mouseX, mouseY]
+}
+//MAIN FUNCTION
 export const CallToAction = () => {
+  //For parallex effect or the depth for the star when scrolling
+  const sectionRef = useRef<HTMLElement>(null)
+  const borderedDivRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  })
+
+  const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300])
+
+  const [mouseX, mouseY] = useRelativeMousePosition(borderedDivRef)
+
+  useMotionTemplate`radial-gradient(50% 50% at 0px 0px, black, transparent)`
   return (
-    <motion.section className="p-20 md:p-28">
+    <section className="p-20 md:p-28" ref={sectionRef}>
       <motion.div
+        ref={borderedDivRef}
         animate={{
           backgroundPositionX: Starbg.width,
         }}
         transition={{
           duration: 30,
           repeat: Infinity,
-          ease:"linear"
+          ease: "linear",
         }}
-        className="border border-white/10 py-28 rouned-xl overflow-hidden relative"
+        //we have a group class at the end. Grop:helps to change any thing in teh childring div, it is declared in the parent div
+        className="border border-white/10 py-28 rouned-xl overflow-hidden relative group"
         style={{
+          backgroundPositionY,
           backgroundImage: `url(${Starbg.src})`,
         }}
       >
+        {/*this one for initial masking */}
         <div
-          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] "
+          //we have a grop-hover class to help as manage teh bg-mask
+          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0"
           style={{
             backgroundImage: `url(${Gridbg.src})`,
           }}
         ></div>
+        {/* this one for mouse hover */}
+        <motion.div
+          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay  opacity-0 group-hover:opacity-100 "
+          style={{
+            backgroundImage: `url(${Gridbg.src})`,
+          }}
+        ></motion.div>
         <div className="container">
           <div className="relative">
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter text-center max-w-lg mx-auto">
@@ -43,6 +83,6 @@ export const CallToAction = () => {
           </div>
         </div>
       </motion.div>
-    </motion.section>
+    </section>
   )
 }
