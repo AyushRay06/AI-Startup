@@ -31,6 +31,22 @@ const tabs = [
   },
 ]
 
+const FeatureTab = (tab: (typeof tabs)[number]) => {
+  return (
+    <div className="border border-white/20 rounded-2xl flex py-3 items-center gap-5 lg:flex-1 ">
+      <div className="h-12 w-12 border border-white/20 rounded-xl  ml-3 inline-flex items-center justify-center ">
+        <DotLottiePlayer src={tab.icon} className="h-6 w-6" autoplay loop />
+      </div>
+      <div>{tab.title}</div>
+      {tab.isNew && (
+        <div className="bg-purple-400 rounded-2xl text-black p-2 font-semibold text-xs">
+          new
+        </div>
+      )}
+    </div>
+  )
+}
+
 export const Features = () => {
   return (
     <section className="py-20 md:py-28">
@@ -44,25 +60,7 @@ export const Features = () => {
         </p>
         <div className="mt-10 flex flex-col lg:flex-row gap-5">
           {tabs.map((tab) => (
-            <div
-              key={tab.title}
-              className="border border-white/20 rounded-2xl flex py-3 items-center gap-5 lg:flex-1 "
-            >
-              <div className="h-12 w-12 border border-white/20 rounded-xl  ml-3 inline-flex items-center justify-center ">
-                <DotLottiePlayer
-                  src={tab.icon}
-                  className="h-6 w-6"
-                  autoplay
-                  loop
-                />
-              </div>
-              <div>{tab.title}</div>
-              {tab.isNew && (
-                <div className="bg-purple-400 rounded-2xl text-black p-2 font-semibold text-xs">
-                  new
-                </div>
-              )}
-            </div>
+            <FeatureTab {...tab} key={tab.title} />
           ))}
         </div>
         <div className="border border-white/20 rounded-2xl p-2.5 mt-10">

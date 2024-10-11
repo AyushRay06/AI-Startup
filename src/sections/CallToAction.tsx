@@ -10,12 +10,27 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion"
-import { RefObject, useRef } from "react"
+import { RefObject, useEffect, useRef } from "react"
 
 //for follow mouse hover, we created a custom hook
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
+
+  const updateMousePosition = (event: MouseEvent) => {
+    if (!to.current) return
+    const { top, left } = to.current.getBoundingClientRect()
+    mouseX.set(event.x - left)
+    mouseY.set(event.y - top)
+  }
+
+  useEffect(() => {
+    window.addEventListener("mousemove", updateMousePosition)
+
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition)
+    }
+  }, [])
 
   return [mouseX, mouseY]
 }
@@ -33,7 +48,7 @@ export const CallToAction = () => {
 
   const [mouseX, mouseY] = useRelativeMousePosition(borderedDivRef)
 
-  useMotionTemplate`radial-gradient(50% 50% at 0px 0px, black, transparent)`
+  const maskImage = useMotionTemplate`radial-gradient(50% 50% at ${mouseX}px ${mouseY}px, black, transparent)`
   return (
     <section className="p-20 md:p-28" ref={sectionRef}>
       <motion.div
@@ -56,15 +71,16 @@ export const CallToAction = () => {
         {/*this one for initial masking */}
         <div
           //we have a grop-hover class to help as manage teh bg-mask
-          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0"
+          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-1000"
           style={{
             backgroundImage: `url(${Gridbg.src})`,
           }}
         ></div>
         {/* this one for mouse hover */}
         <motion.div
-          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay  opacity-0 group-hover:opacity-100 "
+          className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay  opacity-0 group-hover:opacity-100 transition duration-1000 "
           style={{
+            maskImage,
             backgroundImage: `url(${Gridbg.src})`,
           }}
         ></motion.div>
