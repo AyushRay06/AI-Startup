@@ -1,8 +1,15 @@
 "use client"
-import { DotLottiePlayer } from "@dotlottie/react-player"
+import { DotLottieCommonPlayer, DotLottiePlayer } from "@dotlottie/react-player"
 import Image from "next/image"
 import productImage from "@/assets/product-image.png"
 import { IconSparkles } from "@tabler/icons-react"
+import { useEffect, useRef } from "react"
+import {
+  animate,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+} from "framer-motion"
 
 const tabs = [
   {
@@ -32,10 +39,74 @@ const tabs = [
 ]
 
 const FeatureTab = (tab: (typeof tabs)[number]) => {
+  const tabRef = useRef<HTMLDivElement>(null)
+  const dotlottieRef = useRef<DotLottieCommonPlayer>(null)
+
+  //since we need to animate or alter to values ie X an Y % hence we will ned to motion value
+  const xPercent = useMotionValue(100)
+  const yPercent = useMotionValue(0)
+  //we are alterning the x and y % using  useMotionValue
+  const maskImage = useMotionTemplate`radial-gradient(100px 50px at ${xPercent}% ${yPercent}%, black, transparent)`
+  //useeffect to animate the values
+  useEffect(() => {
+    //to ensure tht the time interval is smooth as the x distance is way more than the y distance for mask image
+    if (!tabRef.current) return
+    const { height, width } = tabRef.current?.getBoundingClientRect()
+    const circumference = height * 2 + width * 2
+    const times = [
+      0,
+      width / circumference,
+      (width + height) / circumference,
+      (width * 2 + height) / circumference,
+      1,
+    ]
+    animate(xPercent, [0, 100, 100, 0, 0], {
+      duration: 4,
+      times,
+      ease: "linear",
+      repeat: Infinity,
+      repeatType: "loop",
+    })
+    animate(yPercent, [0, 0, 100, 100, 0], {
+      times,
+      duration: 4,
+      ease: "linear",
+      repeat: Infinity,
+      repeatType: "loop",
+    })
+  }, [])
+
+  //custom funtion to manage the animaton of icon  on hover or mouse enter
+  const handleTabHover = () => {
+    if (dotlottieRef.current === null) return
+    //to set the animation to initial after hover so that when over again the logo should animate
+    dotlottieRef.current.seek(0)
+    dotlottieRef.current.play()
+  }
+
   return (
-    <div className="border border-white/20 rounded-2xl flex py-3 items-center gap-5 lg:flex-1 ">
+    <div
+      ref={tabRef}
+      //when hover over the tab icon animation
+      onMouseEnter={handleTabHover}
+      className="border border-white/20 rounded-2xl flex py-3 items-center gap-5 lg:flex-1 relative "
+    >
+      {/* -m-px as absolutly positioned elemnts go inside the parent , so to match the border alignment with thre parent border */}
+      {/* "mask-image to show the border color in a selected part of the border" */}
+      {/* to Achive the anmation all we need to do is alter the x and y % value on the mask-image which will be done using useMotionValue by framr motion */}
+      <motion.div
+        style={{
+          maskImage,
+        }}
+        className="absolute inset-0 -m-px border border-[#A369FF] rounded-2xl"
+      ></motion.div>
       <div className="h-12 w-12 border border-white/20 rounded-xl  ml-3 inline-flex items-center justify-center ">
-        <DotLottiePlayer src={tab.icon} className="h-6 w-6" autoplay loop />
+        <DotLottiePlayer
+          ref={dotlottieRef}
+          src={tab.icon}
+          className="h-6 w-6"
+          autoplay
+        />
       </div>
       <div>{tab.title}</div>
       {tab.isNew && (
