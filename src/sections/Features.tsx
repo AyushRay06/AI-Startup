@@ -60,6 +60,7 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
       (width * 2 + height) / circumference,
       1,
     ]
+    //duration
     animate(xPercent, [0, 100, 100, 0, 0], {
       duration: 4,
       times,
