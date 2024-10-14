@@ -3,7 +3,7 @@ import { DotLottieCommonPlayer, DotLottiePlayer } from "@dotlottie/react-player"
 import Image from "next/image"
 import productImage from "@/assets/product-image.png"
 import { IconSparkles } from "@tabler/icons-react"
-import { useEffect, useRef } from "react"
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react"
 import {
   animate,
   motion,
@@ -12,6 +12,7 @@ import {
 } from "framer-motion"
 
 const tabs = [
+  //THE backgroundPositionX,backgroundPositionY AND backgroundSizeX HELP US TO CROP THE IMAGE WWHEN A TAB IS SELECTED
   {
     icon: "/assets/lottie/vroom.lottie",
     title: "User-friendly dashboard",
@@ -38,7 +39,10 @@ const tabs = [
   },
 ]
 
-const FeatureTab = (tab: (typeof tabs)[number]) => {
+const FeatureTab = (
+  props: (typeof tabs)[number] &
+    ComponentPropsWithoutRef<"div"> & { selected: boolean }
+) => {
   const tabRef = useRef<HTMLDivElement>(null)
   const dotlottieRef = useRef<DotLottieCommonPlayer>(null)
 
@@ -50,7 +54,10 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
   //useeffect to animate the values
   useEffect(() => {
     //to ensure tht the time interval is smooth as the x distance is way more than the y distance for mask image
-    if (!tabRef.current) return
+    if (!tabRef.current || !props.selected) return
+
+    xPercent.set(0)
+    yPercent.set(0)
     const { height, width } = tabRef.current?.getBoundingClientRect()
     const circumference = height * 2 + width * 2
     const times = [
@@ -75,7 +82,7 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
       repeat: Infinity,
       repeatType: "loop",
     })
-  }, [])
+  }, [props.selected])
 
   //custom funtion to manage the animaton of icon  on hover or mouse enter
   const handleTabHover = () => {
@@ -91,26 +98,30 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
       //when hover over the tab icon animation
       onMouseEnter={handleTabHover}
       className="border border-white/20 rounded-2xl flex py-3 items-center gap-5 lg:flex-1 relative "
+      onClick={props.onClick}
     >
+      {props.selected && (
+        <motion.div
+          style={{
+            maskImage,
+          }}
+          className="absolute inset-0 -m-px border border-[#A369FF] rounded-2xl"
+        ></motion.div>
+      )}
       {/* -m-px as absolutly positioned elemnts go inside the parent , so to match the border alignment with thre parent border */}
       {/* "mask-image to show the border color in a selected part of the border" */}
       {/* to Achive the anmation all we need to do is alter the x and y % value on the mask-image which will be done using useMotionValue by framr motion */}
-      <motion.div
-        style={{
-          maskImage,
-        }}
-        className="absolute inset-0 -m-px border border-[#A369FF] rounded-2xl"
-      ></motion.div>
+
       <div className="h-12 w-12 border border-white/20 rounded-xl  ml-3 inline-flex items-center justify-center ">
         <DotLottiePlayer
           ref={dotlottieRef}
-          src={tab.icon}
+          src={props.icon}
           className="h-6 w-6"
           autoplay
         />
       </div>
-      <div>{tab.title}</div>
-      {tab.isNew && (
+      <div>{props.title}</div>
+      {props.isNew && (
         <div className="bg-purple-400 rounded-2xl text-black p-2 font-semibold text-xs">
           new
         </div>
@@ -120,6 +131,46 @@ const FeatureTab = (tab: (typeof tabs)[number]) => {
 }
 
 export const Features = () => {
+  //0 is the index no of the tab.
+  const [selectedTab, setSelectedTab] = useState(0)
+
+  //Getting the coordinates to crop grom tabs object
+  const backgroundPositionX = useMotionValue(tabs[0].backgroundPositionX)
+  const backgroundPositionY = useMotionValue(tabs[0].backgroundPositionY)
+  const backgroundSizeX = useMotionValue(tabs[0].backgroundSizeX)
+
+  //we cannot use useMotionvalue as a no so we need to conver it into percentage so usinh useMotiontemplate
+  const backgroundPosition = useMotionTemplate`${backgroundPositionX}% ${backgroundPositionY}%`
+  const backgroundSize = useMotionTemplate`${backgroundSizeX}% auto`
+
+  const handleSelecttab = (index: number) => {
+    setSelectedTab(index)
+
+    animate(
+      backgroundSizeX,
+      [backgroundSizeX.get(), 100, tabs[index].backgroundSizeX],
+      {
+        duration: 2,
+        ease: "easeInOut",
+      }
+    )
+    animate(
+      backgroundPositionX,
+      [backgroundPositionX.get(), 100, tabs[index].backgroundPositionX],
+      {
+        duration: 2,
+        ease: "easeInOut",
+      }
+    )
+    animate(
+      backgroundPositionY,
+      [backgroundPositionY.get(), 100, tabs[index].backgroundPositionY],
+      {
+        duration: 2,
+        ease: "easeInOut",
+      }
+    )
+  }
   return (
     <section className="py-20 md:py-28">
       <div className="container">
@@ -131,17 +182,24 @@ export const Features = () => {
           vero sint consequuntur molestiae velit tempore illo ipsam .
         </p>
         <div className="mt-10 flex flex-col lg:flex-row gap-5">
-          {tabs.map((tab) => (
-            <FeatureTab {...tab} key={tab.title} />
+          {tabs.map((tab, tabIndex) => (
+            <FeatureTab
+              {...tab}
+              selected={selectedTab === tabIndex}
+              onClick={() => handleSelecttab(tabIndex)}
+              key={tab.title}
+            />
           ))}
         </div>
         <div className="border border-white/20 rounded-2xl p-2.5 mt-10">
-          <div
+          <motion.div
             className="aspect-video bg-cover border border-white/20 rounded-lg"
             style={{
+              backgroundPosition,
+              backgroundSize,
               backgroundImage: `url(${productImage.src})`,
             }}
-          ></div>
+          ></motion.div>
           {/* <Image
             src={productImage}
             alt=" product Image "
