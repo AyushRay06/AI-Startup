@@ -32,13 +32,13 @@ This is a modern and responsive website built using **Next.js**, **React**, **Ta
 2. Install Dependency:
    ```bash
     npm install
-# or 
+   # or 
     yarn install
    
 3. Run the development server:
    ```bash
     npm run dev
-# or
+   # or
     yarn dev
 4. Open http://localhost:3000 to view it in your browser.
 
