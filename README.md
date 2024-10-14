@@ -14,7 +14,7 @@ This is a modern and responsive website built using **Next.js**, **React**, **Ta
 - **Next.js**: React framework for building server-side rendered and static web applications.
 - **React**: JavaScript library for building user interfaces.
 - **Tailwind CSS**: Utility-first CSS framework for creating fast, responsive UIs.
-- **Framer Motion**: Animation library for creating smooth and complex animations.
+- **Framer Motion**: Animation library for creating smooth, complex animations.
 
 ## Getting Started
 
@@ -29,8 +29,16 @@ This is a modern and responsive website built using **Next.js**, **React**, **Ta
    ```bash
    git clone https://github.com/AyushRay06/AI-Startup
 
-## Install Dependency
-npm install
+2. Install Dependency:
+   ```bash
+    npm install
+# or 
+    yarn install
+   
+3. Run the development server:
+   ```bash
+    npm run dev
 # or
-yarn install
+    yarn dev
+4. Open http://localhost:3000 to view it in your browser.
 
