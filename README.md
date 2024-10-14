@@ -28,8 +28,9 @@ This is a modern and responsive website built using **Next.js**, **React**, **Ta
 1. Clone the repository:
    ```bash
    git clone https://github.com/AyushRay06/AI-Startup
-   cd your-project
 
-
-
+## Install Dependency
+npm install
+# or
+yarn install
 
